@@ -22,6 +22,11 @@ class DownloadExcel extends ExportToExcel
         return $this->name ?? __('Download Excel');
     }
 
+    /**
+     * @param  ActionRequest  $request
+     * @param  Action  $exportable
+     * @return mixed
+     */
     public function handle(ActionRequest $request, Action $exportable): mixed
     {
         if (config('excel.temporary_files.remote_disk')) {
@@ -45,6 +50,7 @@ class DownloadExcel extends ExportToExcel
             : Action::download(
                 $this->getDownloadUrl($response->getFile()->getPathname()),
                 $this->getFilename()
+            );
     }
 
     /**

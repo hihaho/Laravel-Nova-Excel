@@ -22,6 +22,11 @@ class DownloadExcel extends ExportToExcel
         return $this->name ?? __('Download Excel');
     }
 
+    /**
+     * @param  ActionRequest  $request
+     * @param  Action  $exportable
+     * @return mixed
+     */
     public function handle(ActionRequest $request, Action $exportable): mixed
     {
         if (config('excel.temporary_files.remote_disk')) {
@@ -48,6 +53,11 @@ class DownloadExcel extends ExportToExcel
             );
     }
 
+    /**
+     * @param  ActionRequest  $request
+     * @param  Action  $exportable
+     * @return mixed
+     */
     public function handleRemoteDisk(ActionRequest $request, Action $exportable): mixed
     {
         $temporaryFilePath = config('excel.temporary_files.remote_prefix') . 'laravel-excel-' . Str::random(32) . '.' . $this->getDefaultExtension();

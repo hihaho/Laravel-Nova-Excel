@@ -26,8 +26,8 @@ class ExportLensActionRequest extends LensActionRequest implements ExportActionR
             $groups = $query->getQuery()->groups;
 
             is_array($groups) && 1 === count($groups)
-                ? $query->whereIn($groups[0], explode(',', $this->resources))
-                : $query->whereKey(explode(',', $this->resources));
+                ? $query->whereIn($groups[0], is_array($this->resources) ? $this->resources : explode(',', $this->resources))
+                : $query->whereKey(is_array($this->resources) ? $this->resources : explode(',', $this->resources));
         });
     }
 

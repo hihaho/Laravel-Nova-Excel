@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Actions\ActionResponse;
 use Laravel\Nova\Http\Requests\ActionRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -47,9 +48,9 @@ class DownloadExcel extends ExportToExcel
 
         return \is_callable($this->onSuccess)
             ? ($this->onSuccess)($request, $response)
-            : Action::download(
-                $this->getDownloadUrl($response->getFile()->getPathname()),
-                $this->getFilename()
+            : ActionResponse::download(
+                $this->getFilename(),
+                $this->getDownloadUrl($response->getFile()->getPathname())
             );
     }
 
@@ -71,9 +72,9 @@ class DownloadExcel extends ExportToExcel
 
         return \is_callable($this->onSuccess)
             ? ($this->onSuccess)($request, $temporaryFilePath)
-            : Action::download(
-                $this->getDownloadUrl($temporaryFilePath),
-                $this->getFilename()
+            : ActionResponse::download(
+                $this->getFilename(),
+                $this->getDownloadUrl($temporaryFilePath)
             );
     }
 
